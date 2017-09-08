@@ -2,13 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.SampleDataGenerator;
-using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.Telemetry.Data;
+using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.Telemetry.Data;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Logging;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Telemetry;
 
-namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.Telemetry
+namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.Telemetry
 {
-    public class RemoteMonitorTelemetry : ITelemetry, ITelemetryWithInterval, ITelemetryWithTemperatureMeanValue, ITelemetryFactoryResetSupport
+    public class RemoteMonitorTelemetry : ITelemetry, ITelemetryWithInterval, ITelemetryWithWaterLevelMeanValue, ITelemetryFactoryResetSupport
     {
         private readonly ILogger _logger;
         private readonly string _deviceId;
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
             }
         }
 
-        public double TemperatureMeanValue
+        public double WaterLevelMeanValue
         {
             get
             {

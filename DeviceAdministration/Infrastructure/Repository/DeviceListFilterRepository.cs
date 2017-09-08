@@ -40,7 +40,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.DeviceAdmin.Infr
                 {
                     new Clause
                     {
-                        ColumnName = "reported.Config.TemperatureMeanValue",
+                        ColumnName = "reported.Config.WaterLevelMeanValue",
                         ClauseType = ClauseType.GT,
                         ClauseValue = "60",
                         ClauseDataType = TwinDataType.Number

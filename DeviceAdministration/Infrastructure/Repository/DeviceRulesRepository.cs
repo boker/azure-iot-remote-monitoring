@@ -217,16 +217,12 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.DeviceAdmin.Infr
                         entity = blobEntityDictionary[rule.PartitionKey];
                     }
 
-                    if (rule.DataField == DeviceRuleDataFields.Temperature)
+                    if (rule.DataField == DeviceRuleDataFields.WaterLevel)
                     {
-                        entity.Temperature = rule.Threshold;
-                        entity.TemperatureRuleOutput = rule.RuleOutput;
+                        entity.WaterLevel = rule.Threshold;
+                        entity.WaterLevelRuleOutput = rule.RuleOutput;
                     }
-                    else if (rule.DataField == DeviceRuleDataFields.Humidity)
-                    {
-                        entity.Humidity = rule.Threshold;
-                        entity.HumidityRuleOutput = rule.RuleOutput;
-                    }
+                    
                 }
             }
 

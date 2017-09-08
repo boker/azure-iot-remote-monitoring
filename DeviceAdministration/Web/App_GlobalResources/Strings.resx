@@ -1264,8 +1264,8 @@
     <value>Telemetry History</value>
     <comment>Chart heading.</comment>
   </data>
-  <data name="Temperature" xml:space="preserve">
-    <value>Temperature</value>
+  <data name="WaterLevel" xml:space="preserve">
+    <value>WaterLevel</value>
     <comment>Label.</comment>
   </data>
   <data name="Active" xml:space="preserve">
@@ -1528,8 +1528,7 @@
     <comment>Tile subheading.</comment>
   </data>
   <data name="ApiRegistrationTitle" xml:space="preserve">
-    <value>Jasper API Registration</value>
-    <comment>Panel heading. {Locked="Jasper"}{Locked="API"}</comment>
+    <value>API Registration</value>
   </data>
   <data name="CellularConnViewTitle" xml:space="preserve">
     <value>Cellular Conn</value>
@@ -1775,9 +1774,6 @@
   </data>
   <data name="ApiRegistrationSelectOptionInitial" xml:space="preserve">
     <value>Select provider</value>
-  </data>
-  <data name="ApiRegistrationTitle" xml:space="preserve">
-    <value>API Registration</value>
   </data>
   <data name="EricssonHelpLink" xml:space="preserve">
     <value>https://www.ericsson.com/microsoft-iot</value>
@@ -2316,8 +2312,8 @@
     <value>Saved Filters</value>
     <comment>Tooltip.</comment>
   </data>
-  <data name="FailedToCreateTempFilter" xml:space="preserve">
-    <value>Failed to create temp filter.</value>
+  <data name="FailedToCreateWaterLevelFilter" xml:space="preserve">
+    <value>Failed to create water level filter.</value>
     <comment>Error message.</comment>
   </data>
   <data name="FailedToSearchApplicableDevice" xml:space="preserve">
@@ -2528,8 +2524,8 @@
     <value>FwStatus</value>
     <comment>Table column header.</comment>
   </data>
-  <data name="TemperatureHeader" xml:space="preserve">
-    <value>Temperature</value>
+  <data name="WaterLevelHeader" xml:space="preserve">
+    <value>WaterLevel</value>
     <comment>Table column header.</comment>
   </data>
   <data name="BuildingHeader" xml:space="preserve">

@@ -2,8 +2,8 @@
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Logging;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Configurations;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Models;
-using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.CommandProcessors;
-using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.Devices;
+using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.CommandProcessors;
+using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.Devices;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.CommandProcessors;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Telemetry.Factory;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Transport;
@@ -15,7 +15,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
 {
     public class StartCommandProcessorTests
     {
-        private Mock<CoolerDevice> _coolerDevice;
+        private Mock<WaterLevelDevice> _coolerDevice;
         private StartCommandProcessor _startCommandProcessor;
         private readonly Mock<IConfigurationProvider> _configurationProviderMock;
         private readonly Mock<ILogger> _loggerMock;
@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             _telemetryFactoryMock = new Mock<ITelemetryFactory>();
             _configurationProviderMock = new Mock<IConfigurationProvider>();
             _transport = new Mock<ITransport>();
-            _coolerDevice = new Mock<CoolerDevice>(_loggerMock.Object, _transportFactory.Object, _telemetryFactoryMock.Object,
+            _coolerDevice = new Mock<WaterLevelDevice>(_loggerMock.Object, _transportFactory.Object, _telemetryFactoryMock.Object,
                 _configurationProviderMock.Object);
             _startCommandProcessor = new StartCommandProcessor(_coolerDevice.Object);
         }

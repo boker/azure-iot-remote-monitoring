@@ -12,11 +12,11 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
     /// <summary>
     /// Command processor to handle the change in the temperature range
     /// </summary>
-    public class ChangeSetPointTempCommandProcessor : CommandProcessor
+    public class ChangeSetPointWaterLevelCommandProcessor : CommandProcessor
     {
-        private const string CHANGE_SET_POINT_TEMP = "ChangeSetPointTemp";
+        private const string CHANGE_SET_POINT_WATERLEVEL = "ChangeSetPointWaterLevel";
 
-        public ChangeSetPointTempCommandProcessor(WaterLevelDevice device)
+        public ChangeSetPointWaterLevelCommandProcessor(WaterLevelDevice device)
             : base(device)
         {
 
@@ -24,7 +24,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
 
         public async override Task<CommandProcessingResult> HandleCommandAsync(DeserializableCommand deserializableCommand)
         {
-            if (deserializableCommand.CommandName == CHANGE_SET_POINT_TEMP)
+            if (deserializableCommand.CommandName == CHANGE_SET_POINT_WATERLEVEL)
             {
                 CommandHistory commandHistory = deserializableCommand.CommandHistory;
 
@@ -36,16 +36,16 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
                         dynamic parameters = commandHistory.Parameters;
                         if (parameters != null)
                         {
-                            dynamic setPointTempDynamic = ReflectionHelper.GetNamedPropertyValue(
+                            dynamic setPointWaterLevelDynamic = ReflectionHelper.GetNamedPropertyValue(
                                 parameters,
-                                "SetPointTemp",
+                                "SetPointWaterLevel",
                                 usesCaseSensitivePropertyNameMatch: true,
                                 exceptionThrownIfNoMatch: true);
 
-                            if (setPointTempDynamic != null)
+                            if (setPointWaterLevelDynamic != null)
                             {
                                 double setPointTemp;
-                                if (Double.TryParse(setPointTempDynamic.ToString(), out setPointTemp))
+                                if (Double.TryParse(setPointWaterLevelDynamic.ToString(), out setPointTemp))
                                 {
                                     device.ChangeSetPointWaterLevel(setPointTemp);
 

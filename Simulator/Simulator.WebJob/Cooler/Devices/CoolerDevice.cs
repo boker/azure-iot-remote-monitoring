@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Configurations;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Extensions;
-using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.CommandProcessors;
-using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.Telemetry;
+using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.CommandProcessors;
+using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.Telemetry;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.CommandProcessors;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Devices;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Devices.DMTasks;
@@ -18,20 +18,20 @@ using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
 
-namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.Devices
+namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.Devices
 {
     /// <summary>
     /// Implementation of a specific device type that extends the BaseDevice functionality
     /// </summary>
-    public class CoolerDevice : DeviceBase
+    public class WaterLevelDevice : DeviceBase
     {
         private Task _deviceManagementTask = null;
 
-        public CoolerDevice(ILogger logger, ITransportFactory transportFactory,
+        public WaterLevelDevice(ILogger logger, ITransportFactory transportFactory,
             ITelemetryFactory telemetryFactory, IConfigurationProvider configurationProvider)
             : base(logger, transportFactory, telemetryFactory, configurationProvider)
         {
-            _desiredPropertyUpdateHandlers.Add(TemperatureMeanValuePropertyName, OnTemperatureMeanValueUpdate);
+            _desiredPropertyUpdateHandlers.Add(WaterLevelMeanValuePropertyName, OnTemperatureMeanValueUpdate);
             _desiredPropertyUpdateHandlers.Add(TelemetryIntervalPropertyName, OnTelemetryIntervalUpdate);
         }
 
@@ -44,14 +44,14 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
             var startCommandProcessor = new StartCommandProcessor(this);
             var stopCommandProcessor = new StopCommandProcessor(this);
             var diagnosticTelemetryCommandProcessor = new DiagnosticTelemetryCommandProcessor(this);
-            var changeSetPointTempCommandProcessor = new ChangeSetPointTempCommandProcessor(this);
+            var changeSetPointWaterLevelCommandProcessor = new ChangeSetPointTempCommandProcessor(this);
             var changeDeviceStateCommmandProcessor = new ChangeDeviceStateCommandProcessor(this);
 
             pingDeviceProcessor.NextCommandProcessor = startCommandProcessor;
             startCommandProcessor.NextCommandProcessor = stopCommandProcessor;
             stopCommandProcessor.NextCommandProcessor = diagnosticTelemetryCommandProcessor;
-            diagnosticTelemetryCommandProcessor.NextCommandProcessor = changeSetPointTempCommandProcessor;
-            changeSetPointTempCommandProcessor.NextCommandProcessor = changeDeviceStateCommmandProcessor;
+            diagnosticTelemetryCommandProcessor.NextCommandProcessor = changeSetPointWaterLevelCommandProcessor;
+            changeSetPointWaterLevelCommandProcessor.NextCommandProcessor = changeDeviceStateCommmandProcessor;
 
             RootCommandProcessor = pingDeviceProcessor;
         }
@@ -76,11 +76,11 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
             return lastStatus;
         }
 
-        public void ChangeSetPointTemp(double setPointTemp)
+        public void ChangeSetPointWaterLevel(double setPointWaterLevel)
         {
             var remoteMonitorTelemetry = (RemoteMonitorTelemetry)_telemetryController;
-            remoteMonitorTelemetry.TemperatureMeanValue = setPointTemp;
-            Logger.LogInfo("Device {0} temperature changed to {1}", DeviceID, setPointTemp);
+            remoteMonitorTelemetry.WaterLevelMeanValue = setPointWaterLevel;
+            Logger.LogInfo("Device {0} temperature changed to {1}", DeviceID, setPointWaterLevel);
         }
 
         public async Task ChangeDeviceState(string deviceState)
@@ -124,10 +124,10 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
                 _deviceManagementTask = operation.Run(Transport).ContinueWith(async task =>
                 {
                     // after firmware completed, we reset telemetry for demo purpose
-                    var telemetry = _telemetryController as ITelemetryWithTemperatureMeanValue;
+                    var telemetry = _telemetryController as ITelemetryWithWaterLevelMeanValue;
                     if (telemetry != null)
                     {
-                        telemetry.TemperatureMeanValue = 34.5;
+                        telemetry.WaterLevelMeanValue = 34.5;
                     }
 
                     await UpdateReportedTemperatureMeanValue();
@@ -301,10 +301,10 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
             clear.Set(FirmwareUpdate.ReportPrefix, null);
             await Transport.UpdateReportedPropertiesAsync(clear);
 
-            var telemetry = _telemetryController as ITelemetryWithTemperatureMeanValue;
+            var telemetry = _telemetryController as ITelemetryWithWaterLevelMeanValue;
             if (telemetry != null)
             {
-                telemetry.TemperatureMeanValue = Convert.ToDouble(value);
+                telemetry.WaterLevelMeanValue = Convert.ToDouble(value);
             }
 
             await UpdateReportedTemperatureMeanValue();
@@ -312,10 +312,10 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
 
         protected async Task UpdateReportedTemperatureMeanValue()
         {
-            var telemetry = _telemetryController as ITelemetryWithTemperatureMeanValue;
+            var telemetry = _telemetryController as ITelemetryWithWaterLevelMeanValue;
             if (telemetry != null)
             {
-                await SetReportedPropertyAsync(TemperatureMeanValuePropertyName, telemetry.TemperatureMeanValue);
+                await SetReportedPropertyAsync(WaterLevelMeanValuePropertyName, telemetry.WaterLevelMeanValue);
             }
         }
 

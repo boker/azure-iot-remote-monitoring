@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Configurations;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Models;
-using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.Devices;
-using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.Cooler.Devices.Factory;
+using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.Devices;
+using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.WaterLevel.Devices.Factory;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Devices;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Logging;
 using Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob.SimulatorCore.Telemetry.Factory;
@@ -16,7 +16,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
 {
     public class CoolerDeviceTests
     {
-        private CoolerDevice _coolerDevice;
+        private WaterLevelDevice _coolerDevice;
         private InitialDeviceConfig _initConfig;
         private Mock<ITransport> _transportMock;
         private IFixture _fixture;
@@ -33,7 +33,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             var configurationProviderMock = new Mock<IConfigurationProvider>();
             var coolerDeviceFactory = new CoolerDeviceFactory();
             _coolerDevice = coolerDeviceFactory.CreateDevice(loggerMock.Object, transportFactoryMock.Object,
-                telemetryFactoryMock.Object, configurationProviderMock.Object, _initConfig) as CoolerDevice;
+                telemetryFactoryMock.Object, configurationProviderMock.Object, _initConfig) as WaterLevelDevice;
             loggerMock.Setup(x => x.LogInfo(It.IsAny<string>(), It.IsAny<object[]>()));
         }
 

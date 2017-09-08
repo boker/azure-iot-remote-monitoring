@@ -4,25 +4,17 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.DeviceAdmin.Infr
 {
     public static class DeviceRuleDataFields
     {
-        public static string Temperature
+        public static string WaterLevel
         { 
             get 
             { 
-                return "Temperature"; 
+                return "WaterLevel"; 
             } 
-        }
-
-        public static string Humidity
-        {
-            get
-            {
-                return "Humidity";
-            }
         }
 
         private static List<string> _availableDataFields = new List<string>
         {
-            Temperature, Humidity
+            WaterLevel
         };
 
         public static List<string> GetListOfAvailableDataFields()

@@ -157,17 +157,11 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.DeviceAdmin.Infr
         {
             foreach (var deviceId in existingDeviceIds)
             {
-                DeviceRule temperatureRule = await GetNewRuleAsync(deviceId);
-                temperatureRule.DataField = DeviceRuleDataFields.Temperature;
-                temperatureRule.RuleOutput = "AlarmTemp";
-                temperatureRule.Threshold = 60.0d;
-                await SaveDeviceRuleAsync(temperatureRule);
-
-                DeviceRule humidityRule = await GetNewRuleAsync(deviceId);
-                humidityRule.DataField = DeviceRuleDataFields.Humidity;
-                humidityRule.RuleOutput = "AlarmHumidity";
-                humidityRule.Threshold = 48.0d;
-                await SaveDeviceRuleAsync(humidityRule);
+                DeviceRule WaterLevelRule = await GetNewRuleAsync(deviceId);
+                WaterLevelRule.DataField = DeviceRuleDataFields.WaterLevel;
+                WaterLevelRule.RuleOutput = "AlarmWaterLevel";
+                WaterLevelRule.Threshold = 60.0d;
+                await SaveDeviceRuleAsync(WaterLevelRule);
             }
         }
 

@@ -31,7 +31,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
         public const string StartupTimePropertyName = "Device.StartupTime";
         public const string FirmwareVersionPropertyName = "System.FirmwareVersion";
         public const string ConfigurationVersionPropertyName = "System.ConfigurationVersion";
-        public const string TemperatureMeanValuePropertyName = "Config.TemperatureMeanValue";
+        public const string WaterLevelMeanValuePropertyName = "Config.WaterLevelMeanValue";
         public const string TelemetryIntervalPropertyName = "Config.TelemetryInterval";
         public const string LastDesiredPropertyChangePropertyName = "Device.LastDesiredPropertyChange";
         public const string LastFactoryResetTimePropertyName = "Device.LastFactoryResetTime";
@@ -432,10 +432,10 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
                 patch.Set(TelemetryIntervalPropertyName, telemetryWithInterval.TelemetryIntervalInSeconds);
             }
 
-            var telemetryWithTemperatureMeanValue = _telemetryController as ITelemetryWithTemperatureMeanValue;
-            if (telemetryWithTemperatureMeanValue != null)
+            var telemetryWithWaterLevelMeanValue = _telemetryController as ITelemetryWithWaterLevelMeanValue;
+            if (telemetryWithWaterLevelMeanValue != null)
             {
-                patch.Set(TemperatureMeanValuePropertyName, telemetryWithTemperatureMeanValue.TemperatureMeanValue);
+                patch.Set(WaterLevelMeanValuePropertyName, telemetryWithWaterLevelMeanValue.WaterLevelMeanValue);
             }
 
             patch.Set(StartupTimePropertyName, DateTime.UtcNow.ToString(CultureInfo.CurrentCulture));
