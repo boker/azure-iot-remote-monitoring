@@ -131,7 +131,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.EventProcessor.W
 
                 if (ruleOutput.Equals("AlarmTemp", StringComparison.OrdinalIgnoreCase))
                 {
-                    Trace.TraceInformation("ProcessAction: temperature rule triggered!");
+                    Trace.TraceInformation("ProcessAction: water level rule triggered!");
                     double tempReading = eventData.Reading;
 
                     string tempActionId = await _actionMappingLogic.GetActionIdFromRuleOutputAsync(ruleOutput);
@@ -141,12 +141,12 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.EventProcessor.W
                         await _actionLogic.ExecuteLogicAppAsync(
                         tempActionId,
                         deviceId,
-                        "Temperature",
+                        "WaterLevel",
                         tempReading);
                     }
                     else
                     {
-                        Trace.TraceError("ActionProcessor: tempActionId value is empty for temperatureRuleOutput '{0}'", ruleOutput);
+                        Trace.TraceError("ActionProcessor: tempActionId value is empty for waterLevelRuleOutput '{0}'", ruleOutput);
                     }
                 }
 

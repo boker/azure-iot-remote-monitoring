@@ -1264,7 +1264,7 @@
     <value>Historie telemetrie</value>
     <comment>Chart heading.</comment>
   </data>
-  <data name="Temperature" xml:space="preserve">
+  <data name="WaterLevel" xml:space="preserve">
     <value>Teplota</value>
     <comment>Label.</comment>
   </data>

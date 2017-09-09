@@ -17,7 +17,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
     {
 
         private readonly Mock<WaterLevelDevice> _coolerDevice;
-        private readonly ChangeSetPointTempCommandProcessor _changeSetPointTempCommandProcessor;
+        private readonly ChangeSetPointWaterLevelCommandProcessor _changeSetPointWaterLevelCommandProcessor;
         private readonly Mock<IConfigurationProvider> _configurationProviderMock;
         private readonly Mock<ILogger> _loggerMock;
         private readonly Mock<ITelemetryFactory> _telemetryFactoryMock;
@@ -31,7 +31,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             _coolerDevice = new Mock<WaterLevelDevice>(_loggerMock.Object, _transportFactory.Object,
                 _telemetryFactoryMock.Object,
                 _configurationProviderMock.Object);
-            _changeSetPointTempCommandProcessor = new ChangeSetPointTempCommandProcessor(_coolerDevice.Object);
+            _changeSetPointWaterLevelCommandProcessor = new ChangeSetPointWaterLevelCommandProcessor(_coolerDevice.Object);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             var history = new CommandHistory("CommandShouldNotComplete");
             var command = new DeserializableCommand(history, "LockToken");
             //null pararameters
-            var r = await _changeSetPointTempCommandProcessor.HandleCommandAsync(command);
+            var r = await _changeSetPointWaterLevelCommandProcessor.HandleCommandAsync(command);
             Assert.Equal(r, CommandProcessingResult.CannotComplete);
         }
 
@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             var history = new CommandHistory("ChangeSetPointTemp");
             var command = new DeserializableCommand(history, "LockToken");
         
-            var r = await _changeSetPointTempCommandProcessor.HandleCommandAsync(command);
+            var r = await _changeSetPointWaterLevelCommandProcessor.HandleCommandAsync(command);
             Assert.Equal(r, CommandProcessingResult.CannotComplete);
         }
 
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             history.Parameters = new ExpandoObject();
             history.Parameters.setpointtemp = "1.0";
 
-            var r = await _changeSetPointTempCommandProcessor.HandleCommandAsync(command);
+            var r = await _changeSetPointWaterLevelCommandProcessor.HandleCommandAsync(command);
             Assert.Equal(r, CommandProcessingResult.RetryLater);
         }
 
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             history.Parameters = new ExpandoObject();
             history.Parameters.SetPointTemp = "ThisIsNotADouble";
 
-            var r = await _changeSetPointTempCommandProcessor.HandleCommandAsync(command);
+            var r = await _changeSetPointWaterLevelCommandProcessor.HandleCommandAsync(command);
             Assert.Equal(r, CommandProcessingResult.CannotComplete);
         }
     }

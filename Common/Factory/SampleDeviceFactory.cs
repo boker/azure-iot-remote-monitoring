@@ -178,13 +178,13 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Factory
             device.Commands.Add(new Command(
                 "ChangeSetPointWaterLevel",
                 DeliveryType.Message,
-                "Controls the simulated temperature telemetry values the device sends. This is useful for testing back-end logic.",
+                "Controls the simulated water level telemetry values the device sends. This is useful for testing back-end logic.",
                 new[] { new Parameter("SetPointWaterLevel", "double") }
             ));
             device.Commands.Add(new Command(
                 "DiagnosticTelemetry",
                 DeliveryType.Message,
-                "Controls if the device should send the external temperature as telemetry.",
+                "Controls if the device should send the external water level as telemetry.",
                 new[] { new Parameter("Active", "boolean") }
             ));
             device.Commands.Add(new Command(
@@ -239,7 +239,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Factory
                     device.Twin = new Twin();
                 }
 
-                device.Twin.Properties.Desired.Set("Config.TemperatureMeanValue", 70);
+                device.Twin.Properties.Desired.Set("Config.WaterLevelMeanValue", 70);
             }
         }
 

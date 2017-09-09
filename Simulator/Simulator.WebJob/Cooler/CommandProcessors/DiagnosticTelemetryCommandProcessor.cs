@@ -42,7 +42,8 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
                                     "Active", 
                                     usesCaseSensitivePropertyNameMatch: true,
                                     exceptionThrownIfNoMatch: true);
-
+                            // forcing a true return value
+                            return CommandProcessingResult.Success;
                             if (activeAsDynamic != null)
                             {
                                 var active = Convert.ToBoolean(activeAsDynamic.ToString());

@@ -16,9 +16,9 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
         private const uint REPORT_FREQUENCY_IN_SECONDS = 15;
         private const uint PEAK_FREQUENCY_IN_SECONDS = 90;
 
-        private SampleDataGenerator _temperatureGenerator;
-        private SampleDataGenerator _humidityGenerator;
-        private SampleDataGenerator _externalTemperatureGenerator;
+        private SampleDataGenerator _waterLevelGenerator;
+        //private SampleDataGenerator _humidityGenerator;
+        //private SampleDataGenerator _externalTemperatureGenerator;
 
         public bool ActivateExternalTemperature { get; set; }
 
@@ -53,9 +53,9 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
 
             int peakFrequencyInTicks = Convert.ToInt32(Math.Ceiling((double)PEAK_FREQUENCY_IN_SECONDS / REPORT_FREQUENCY_IN_SECONDS));
 
-            _temperatureGenerator = new SampleDataGenerator(33, 36, 42, peakFrequencyInTicks);
-            _humidityGenerator = new SampleDataGenerator(20, 50);
-            _externalTemperatureGenerator = new SampleDataGenerator(-20, 120);
+            _waterLevelGenerator = new SampleDataGenerator(33, 36, 42, peakFrequencyInTicks);
+            //_humidityGenerator = new SampleDataGenerator(20, 50);
+            //_externalTemperatureGenerator = new SampleDataGenerator(-20, 120);
 
             TelemetryIntervalInSeconds = REPORT_FREQUENCY_IN_SECONDS;
         }
@@ -64,24 +64,24 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
         {
             var monitorData = new RemoteMonitorTelemetryData();
             string messageBody;
+            ActivateExternalTemperature = false;
             while (!token.IsCancellationRequested)
             {
                 if (TelemetryActive)
                 {
                     monitorData.DeviceId = _deviceId;
-                    monitorData.Temperature = _temperatureGenerator.GetNextValue();
-                    monitorData.Humidity = _humidityGenerator.GetNextValue();
-                    messageBody = "Temperature: " + Math.Round(monitorData.Temperature, 2)
-                        + " Humidity: " + Math.Round(monitorData.Humidity, 2);
+                    monitorData.WaterLevel = _waterLevelGenerator.GetNextValue();
+                    //monitorData.Humidity = _humidityGenerator.GetNextValue();
+                    messageBody = "Water Level: " + Math.Round(monitorData.WaterLevel, 2);
 
                     if (ActivateExternalTemperature)
                     {
-                        monitorData.ExternalTemperature = _externalTemperatureGenerator.GetNextValue();
-                        messageBody += " External Temperature: " + Math.Round((double)monitorData.ExternalTemperature, 2);
+                        //monitorData.ExternalTemperature = _externalTemperatureGenerator.GetNextValue();
+                        //messageBody += " External Temperature: " + Math.Round((double)monitorData.ExternalTemperature, 2);
                     }
                     else
                     {
-                        monitorData.ExternalTemperature = null;
+                        //monitorData.ExternalTemperature = null;
                     }
 
                     //_logger.LogInfo("Sending " + messageBody + " for Device: " + _deviceId);
@@ -112,12 +112,12 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
         {
             get
             {
-                return _temperatureGenerator.GetMidPointOfRange();
+                return _waterLevelGenerator.GetMidPointOfRange();
             }
 
             set
             {
-                _temperatureGenerator.ShiftSubsequentData(value);
+                _waterLevelGenerator.ShiftSubsequentData(value);
             }
         }
 

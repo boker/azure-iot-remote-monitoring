@@ -31,7 +31,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
             ITelemetryFactory telemetryFactory, IConfigurationProvider configurationProvider)
             : base(logger, transportFactory, telemetryFactory, configurationProvider)
         {
-            _desiredPropertyUpdateHandlers.Add(WaterLevelMeanValuePropertyName, OnTemperatureMeanValueUpdate);
+            _desiredPropertyUpdateHandlers.Add(WaterLevelMeanValuePropertyName, OnWaterLevelMeanValueUpdate);
             _desiredPropertyUpdateHandlers.Add(TelemetryIntervalPropertyName, OnTelemetryIntervalUpdate);
         }
 
@@ -44,7 +44,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
             var startCommandProcessor = new StartCommandProcessor(this);
             var stopCommandProcessor = new StopCommandProcessor(this);
             var diagnosticTelemetryCommandProcessor = new DiagnosticTelemetryCommandProcessor(this);
-            var changeSetPointWaterLevelCommandProcessor = new ChangeSetPointTempCommandProcessor(this);
+            var changeSetPointWaterLevelCommandProcessor = new ChangeSetPointWaterLevelCommandProcessor(this);
             var changeDeviceStateCommmandProcessor = new ChangeDeviceStateCommandProcessor(this);
 
             pingDeviceProcessor.NextCommandProcessor = startCommandProcessor;
@@ -80,7 +80,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
         {
             var remoteMonitorTelemetry = (RemoteMonitorTelemetry)_telemetryController;
             remoteMonitorTelemetry.WaterLevelMeanValue = setPointWaterLevel;
-            Logger.LogInfo("Device {0} temperature changed to {1}", DeviceID, setPointWaterLevel);
+            Logger.LogInfo("Device {0} water level changed to {1}", DeviceID, setPointWaterLevel);
         }
 
         public async Task ChangeDeviceState(string deviceState)
@@ -130,7 +130,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
                         telemetry.WaterLevelMeanValue = 34.5;
                     }
 
-                    await UpdateReportedTemperatureMeanValue();
+                    await UpdateReportedWaterLeveleMeanValue();
                 });
 
                 return await Task.FromResult(BuildMethodRespose(new
@@ -239,7 +239,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
             if (factoryResetSupport != null)
             {
                 factoryResetSupport.FactoryReset();
-                await UpdateReportedTemperatureMeanValue();
+                await UpdateReportedWaterLeveleMeanValue();
                 await UpdateReportedTelemetryInterval();
             }
 
@@ -294,7 +294,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
             return BuildMethodRespose(JsonConvert.SerializeObject(response), status);
         }
 
-        protected async Task OnTemperatureMeanValueUpdate(object value)
+        protected async Task OnWaterLevelMeanValueUpdate(object value)
         {
             // When set the temperature we clean up the firmware update status for demo purpose.
             var clear = new TwinCollection();
@@ -307,10 +307,10 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Simulator.WebJob
                 telemetry.WaterLevelMeanValue = Convert.ToDouble(value);
             }
 
-            await UpdateReportedTemperatureMeanValue();
+            await UpdateReportedWaterLeveleMeanValue();
         }
 
-        protected async Task UpdateReportedTemperatureMeanValue()
+        protected async Task UpdateReportedWaterLeveleMeanValue()
         {
             var telemetry = _telemetryController as ITelemetryWithWaterLevelMeanValue;
             if (telemetry != null)

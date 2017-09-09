@@ -91,11 +91,11 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             {
                 Assert.IsType<RemoteMonitorTelemetryData>(obj);
 
-                Assert.Null(((RemoteMonitorTelemetryData)obj).ExternalTemperature);
+                //Assert.Null(((RemoteMonitorTelemetryData)obj).ExternalTemperature);
 
                 Assert.NotNull(((RemoteMonitorTelemetryData)obj).DeviceId);
-                Assert.NotNull(((RemoteMonitorTelemetryData)obj).Humidity);
-                Assert.NotNull(((RemoteMonitorTelemetryData)obj).Temperature);
+                //Assert.NotNull(((RemoteMonitorTelemetryData)obj).Humidity);
+                //Assert.NotNull(((RemoteMonitorTelemetryData)obj).Temperature);
 
                 await Task.Delay(0);
 
@@ -113,10 +113,10 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Simula
             await this.telemetry.SendEventsAsync(cancellationTokenSource.Token, async (obj) =>
             {
                 Assert.IsType<RemoteMonitorTelemetryData>(obj);
-                Assert.NotNull(((RemoteMonitorTelemetryData)obj).ExternalTemperature);
+                //Assert.NotNull(((RemoteMonitorTelemetryData)obj).ExternalTemperature);
                 Assert.NotNull(((RemoteMonitorTelemetryData)obj).DeviceId);
-                Assert.NotNull(((RemoteMonitorTelemetryData)obj).Humidity);
-                Assert.NotNull(((RemoteMonitorTelemetryData)obj).Temperature);
+                //Assert.NotNull(((RemoteMonitorTelemetryData)obj).Humidity);
+                Assert.NotNull(((RemoteMonitorTelemetryData)obj).WaterLevel);
 
                 await Task.Delay(0);
 

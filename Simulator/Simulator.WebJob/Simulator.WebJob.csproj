@@ -169,7 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BulkDeviceTester.cs" />
-    <Compile Include="Cooler\CommandProcessors\ChangeSetPointTempCommandProcessor.cs" />
     <Compile Include="DataInitialization\DataInitializer.cs" />
     <Compile Include="DataInitialization\IDataInitializer.cs" />
     <Compile Include="SimulatorCore\CommandProcessors\CommandProcessor.cs" />
