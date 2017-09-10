@@ -2528,8 +2528,8 @@
     <value>WaterLevel</value>
     <comment>Table column header.</comment>
   </data>
-  <data name="BuildingHeader" xml:space="preserve">
-    <value>Building</value>
+  <data name="BankTypeHeader" xml:space="preserve">
+    <value>BankType</value>
     <comment>Table column header.</comment>
   </data>
   <data name="PleaseNameYourFilter" xml:space="preserve">

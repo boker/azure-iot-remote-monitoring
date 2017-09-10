@@ -20,7 +20,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.DeviceAdmin.Web.
             new DeviceListColumns { Name = "deviceId", Alias = Strings.DeviceIdHeader.ToUpperInvariant() },
             new DeviceListColumns { Name = "reported.System.Manufacturer", Alias = Strings.ManufactureHeader.ToUpperInvariant() },
             new DeviceListColumns { Name = "reported.System.FirmwareVersion", Alias = Strings.FirmwareHeader.ToUpperInvariant() },
-            new DeviceListColumns { Name = "tags.Building", Alias = Strings.BuildingHeader.ToUpperInvariant() },
+            new DeviceListColumns { Name = "tags.BankType", Alias = Strings.BankTypeHeader.ToUpperInvariant() },
             new DeviceListColumns { Name = "reported.Config.WaterLevelMeanValue", Alias = Strings.WaterLevelHeader.ToUpperInvariant() },
             new DeviceListColumns { Name = "reported.Method.UpdateFirmware.Status", Alias = Strings.FwStatusHeader.ToUpperInvariant() }
         };

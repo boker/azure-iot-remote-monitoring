@@ -27,7 +27,7 @@
             enableSearchLogo: false,
             enableClickableLogo: false,
             navigationBarMode: Microsoft.Maps.NavigationBarMode.minified,
-            bounds: Microsoft.Maps.LocationRect.fromEdges(71, -28, -55, 28)
+            bounds: Microsoft.Maps.LocationRect.fromEdges(71, 16, 74, 20)
         };
 
         // Initialize the map

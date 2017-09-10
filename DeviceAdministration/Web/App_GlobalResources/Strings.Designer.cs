@@ -557,6 +557,15 @@ namespace GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bank Type.
+        /// </summary>
+        public static string BankTypeHeader {
+            get {
+                return ResourceManager.GetString("BankTypeHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Base URL.
         /// </summary>
         public static string BaseUrlLabel {
@@ -607,15 +616,6 @@ namespace GlobalResources {
         public static string BooleanLabel {
             get {
                 return ResourceManager.GetString("BooleanLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Building.
-        /// </summary>
-        public static string BuildingHeader {
-            get {
-                return ResourceManager.GetString("BuildingHeader", resourceCulture);
             }
         }
         
