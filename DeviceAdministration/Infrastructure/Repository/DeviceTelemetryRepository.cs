@@ -294,7 +294,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.DeviceAdmin.Infr
                             model.DeviceId = str;
                         }
 
-                        if (strdict.TryGetValue("averagehumidity", out str) &&
+                        if (strdict.TryGetValue("averagewaterlevel", out str) &&
                            double.TryParse(
                                 str,
                                 NumberStyles.Float,
@@ -304,7 +304,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.DeviceAdmin.Infr
                             model.AverageHumidity = number;
                         }
 
-                        if (strdict.TryGetValue("maxhumidity", out str) &&
+                        if (strdict.TryGetValue("maxwaterlevel", out str) &&
                            double.TryParse(
                                 str,
                                 NumberStyles.Float,
@@ -314,7 +314,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.DeviceAdmin.Infr
                             model.MaximumHumidity = number;
                         }
 
-                        if (strdict.TryGetValue("minimumhumidity", out str) &&
+                        if (strdict.TryGetValue("minimumwaterlevel", out str) &&
                            double.TryParse(
                                 str,
                                 NumberStyles.Float,

@@ -530,11 +530,11 @@ namespace GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Average of device humidity.
+        ///   Looks up a localized string similar to Average of device water level.
         /// </summary>
-        public static string AverageOfDeviceHumidity {
+        public static string AverageOfDeviceWaterLevel {
             get {
-                return ResourceManager.GetString("AverageOfDeviceHumidity", resourceCulture);
+                return ResourceManager.GetString("AverageOfDeviceWaterLevel", resourceCulture);
             }
         }
         
@@ -557,7 +557,7 @@ namespace GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bank Type.
+        ///   Looks up a localized string similar to BankType.
         /// </summary>
         public static string BankTypeHeader {
             get {
@@ -3428,11 +3428,11 @@ namespace GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max of device humidity.
+        ///   Looks up a localized string similar to Max of device water level.
         /// </summary>
-        public static string MaxOfDevicesHumidity {
+        public static string MaxOfDevicesWaterLevel {
             get {
-                return ResourceManager.GetString("MaxOfDevicesHumidity", resourceCulture);
+                return ResourceManager.GetString("MaxOfDevicesWaterLevel", resourceCulture);
             }
         }
         
@@ -3518,11 +3518,11 @@ namespace GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Min of device humidity.
+        ///   Looks up a localized string similar to Min of device waterlevel.
         /// </summary>
-        public static string MinOfDevicesHumidity {
+        public static string MinOfDevicesWaterLevel {
             get {
-                return ResourceManager.GetString("MinOfDevicesHumidity", resourceCulture);
+                return ResourceManager.GetString("MinOfDevicesWaterLevel", resourceCulture);
             }
         }
         

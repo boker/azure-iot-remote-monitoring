@@ -70,7 +70,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.UnitTests.Infras
             var minTime = new DateTime(year, month, date);
 
             var blobReader = new Mock<IBlobStorageReader>();
-            var blobData = "deviceid,averagehumidity,minimumhumidity,maxhumidity,timeframeminutes" + Environment.NewLine +
+            var blobData = "deviceid,averagewaterlevel,minimumwaterlevel,maxwaterlevel,timeframeminutes" + Environment.NewLine +
                            "test2,37.806204872115607,37.806204872115607,37.806204872115607,5";
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(blobData));
             var blobContents = new BlobContents {Data = stream, LastModifiedTime = DateTime.UtcNow};

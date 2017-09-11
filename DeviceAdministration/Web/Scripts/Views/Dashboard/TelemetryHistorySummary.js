@@ -7,9 +7,9 @@
         var averageDeviceHumidityControl;
         var averageDeviceHumidityLabel;
         var averageHumidityVisual;
-        var lastAvgHumidity;
-        var lastMaxHumidity;
-        var lastMinHumidity;
+        var lastAvgWaterLevel;
+        var lastMaxWaterLevel;
+        var lastMinWaterLevel;
         var maxDeviceHumidityContainer;
         var maxDeviceHumidityControl;
         var maxDeviceHumidityLabel;
@@ -156,12 +156,12 @@
 
             if (minDeviceHumidityControl &&
                 minHumidityVisual &&
-                (lastMinHumidity || (lastMinHumidity === 0))) {
+                (lastMinWaterLevel || (lastMinWaterLevel === 0))) {
                 height = minDeviceHumidityControl.height();
                 width = minDeviceHumidityControl.width();
 
                 minHumidityVisual.update({
-                    dataViews: [createDataView(lastMinHumidity)],
+                    dataViews: [createDataView(lastMinWaterLevel)],
                     viewport: {
                         height: height,
                         width: width
@@ -172,12 +172,12 @@
 
             if (maxDeviceHumidityControl &&
                 maxHumidityVisual &&
-                (lastMaxHumidity || (lastMaxHumidity === 0))) {
+                (lastMaxWaterLevel || (lastMaxWaterLevel === 0))) {
                 height = maxDeviceHumidityControl.height();
                 width = maxDeviceHumidityControl.width();
 
                 maxHumidityVisual.update({
-                    dataViews: [createDataView(lastMaxHumidity)],
+                    dataViews: [createDataView(lastMaxWaterLevel)],
                     viewport: {
                         height: height,
                         width: width
@@ -188,12 +188,12 @@
 
             if (averageDeviceHumidityControl &&
                 averageHumidityVisual &&
-                (lastAvgHumidity || (lastAvgHumidity === 0))) {
+                (lastAvgWaterLevel || (lastAvgWaterLevel === 0))) {
                 height = averageDeviceHumidityControl.height();
                 width = averageDeviceHumidityControl.width();
 
                 averageHumidityVisual.update({
-                    dataViews: [createDataView(lastAvgHumidity)],
+                    dataViews: [createDataView(lastAvgWaterLevel)],
                     viewport: {
                         height: height,
                         width: width
@@ -262,13 +262,13 @@
 
         var updateTelemetryHistorySummaryData =
             function updateTelemetryHistorySummaryData(
-                minHumidity,
-                maxHumidity,
-                avgHumidity) {
+                minWaterLevel,
+                maxWaterLevel,
+                avgWaterLevel) {
 
-                lastAvgHumidity = avgHumidity;
-                lastMaxHumidity = maxHumidity;
-                lastMinHumidity = minHumidity;
+                lastAvgWaterLevel = avgWaterLevel;
+                lastMaxWaterLevel = maxWaterLevel;
+                lastMinWaterLevel = minWaterLevel;
 
                 redraw();
         };
