@@ -25,28 +25,50 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Factory
 
         private static readonly List<string> DefaultDeviceNames = new List<string>
         {
-            "WaterLevelAtPoint1",
-            "WaterLevelAtPoint2",
-            "WaterLevelAtPoint3",
-            "WaterLevelAtPoint4",
-            "WaterLevelAtPoint5",
-            "WaterLevelAtPoint6"
+            "Tara-Aangan",
+            "Mundhwa-Old-Bridge",
+            "Government-Observation-Home",
+            "Vadbhan-Road",
+            "Turfpark-Mundhwa",
+            "Le-Kebabiere",
+            "Koregaon-Park-Central",
+            "HH-Aga-Khan-Bridge",
+            "Liberty-Phase-1And2",
+            "Burning-Ghat",
+            "Yerawada-Bridge",
+            "Abdul-Kalam-Hall",
+            "Chulangan-Hotel",
+            "Hanuman-Mandir",
+            "Sangamwadi-Road",
+            "Madhavrao-Scindia-Garden",
+            "Laxmi-Narayan-Kunj"
         };
 
         private static readonly List<string> FreeFirmwareDeviceNames = new List<string>
         {
-          "WaterLevelAtPoint1",
-          "WaterLevelAtPoint2",
-          "WaterLevelAtPoint3",
-          "WaterLevelAtPoint4",
-          "WaterLevelAtPoint5",
-          "WaterLevelAtPoint6"
+            "Tara-Aangan",
+            "Mundhwa-Old-Bridge",
+            "Government-Observation-Home",
+            "Vadbhan-Road",
+            "Turfpark-Mundhwa",
+            "Le-Kebabiere",
+            "Koregaon-Park-Central",
+            "HH-Aga-Khan-Bridge",
+            "Liberty-Phase-1And2",
+            "Burning-Ghat",
+            "Yerawada-Bridge",
+            "Abdul-Kalam-Hall",
+            "Chulangan-Hotel",
+            "Hanuman-Mandir",
+            "Sangamwadi-Road",
+            "Madhavrao-Scindia-Garden",
+            "Laxmi-Narayan-Kunj"
         };
 
         private static readonly List<string> HighWaterLevelDeviceNames = new List<string>
         {
-          "WaterLevelAtPoint5",
-          "WaterLevelAtPoint6"
+          "Madhavrao Scindia Garden",
+          "Laxmi Narayan Kunj"
         };
 
         private class Location
@@ -63,12 +85,23 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Factory
         }
 
         private static List<Location> _possibleDeviceLocations = new List<Location>{
-            new Location(18.540095, 73.941868),  // Microsoft Red West Campus, Building A
-            new Location(18.535799, 73.937639),  // 800 Occidental Ave S, Seattle, WA 98134
-            new Location(18.538845, 73.918636),  // 11111 NE 8th St, Bellevue, WA 98004
-            new Location(18.543342, 73886292),  // 3003 160th Ave SE Bellevue, WA 98008
-            new Location(18.541400, 73.874217),  // 15580 NE 31st St Redmond, WA 98008
-            new Location(18.531485, 73.859663)
+            new Location(18.535056, 73.936361),  // Microsoft Red West Campus, Building A
+            new Location(18.535280, 73.933679),  // Microsoft Red West Campus, Building A
+            new Location(18.537077, 73.927815),  // Microsoft Red West Campus, Building A
+            new Location(18.538453, 73.922965),  // Microsoft Red West Campus, Building A
+            new Location(18.538613, 73.920342),  // 800 Occidental Ave S, Seattle, WA 98134
+            new Location(18.539493, 73.912807),  // 11111 NE 8th St, Bellevue, WA 98004
+            new Location(18.540459, 73.908101),  // 3003 160th Ave SE Bellevue, WA 98008
+            new Location(18.540711, 73.904289),  // 15580 NE 31st St Redmond, WA 98008
+            new Location(18.540988, 73.898541),
+            new Location(18.542916, 73.888522),
+            new Location(18.542463, 73.885135),
+            new Location(18.542036, 73.881605),
+            new Location(18.537670, 73.866308),
+            new Location(18.530729, 73.860955),
+            new Location(18.532370, 73.855333),
+            new Location(18.540757, 73.853552),
+            new Location(18.550031, 73.856186)
         };
 
         private static List<string> _possibleBuildingTags = new List<string>
@@ -82,8 +115,8 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Factory
             "1F",
             "2F",
         };
+        private static int totalDevicesAssigned;
 
-        // no references to this
         public static DeviceModel GetSampleSimulatedDevice(string deviceId, string key)
         {
             DeviceModel device = DeviceCreatorHelper.BuildDeviceStructure(deviceId, true, null);
@@ -99,7 +132,6 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Factory
             return device;
         }
 
-        // no references to this
         public static DeviceModel GetSampleDevice(Random randomNumber, SecurityKeys keys)
         {
             var deviceId = string.Format(
@@ -147,8 +179,9 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Factory
             device.DeviceProperties.InstalledRAM = randomId + " MB";
 
             // Choose a location among the 16 above and set Lat and Long for device properties
-            device.DeviceProperties.Latitude = _possibleDeviceLocations[randomId].Latitude;
-            device.DeviceProperties.Longitude = _possibleDeviceLocations[randomId].Longitude;
+            device.DeviceProperties.Latitude = _possibleDeviceLocations[totalDevicesAssigned < _possibleDeviceLocations.Count ? totalDevicesAssigned: 0].Latitude;
+            device.DeviceProperties.Longitude = _possibleDeviceLocations[totalDevicesAssigned < _possibleDeviceLocations.Count ? totalDevicesAssigned : 0].Longitude;
+            totalDevicesAssigned++;
         }
 
         private static void AssignTelemetry(DeviceModel device)
@@ -216,7 +249,7 @@ namespace Microsoft.Azure.Devices.Applications.RemoteMonitoring.Common.Factory
         public static List<string> GetDefaultDeviceNames()
         {
             long milliTime = DateTime.Now.Millisecond;
-            return DefaultDeviceNames.Select(r => string.Concat(r, "_" + milliTime)).ToList();
+            return DefaultDeviceNames.Select(r => string.Concat(r, "")).ToList();
         }
 
         public static void AssignDefaultTags(DeviceModel device)
